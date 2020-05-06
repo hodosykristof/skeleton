@@ -1,9 +1,8 @@
 from dataclasses import dataclass
-from skimage import morphology, filters
+from skimage import filters
 from skimage.util import invert
 
 import copy
-import matplotlib
 import math
 import matplotlib.pyplot as plt
 import numpy as np
@@ -65,31 +64,51 @@ def distance(x1, y1, x2, y2):
     return math.sqrt(square_x + square_y)
 
 
+def contour_farther_from_centroid(contour_point, current_leg_point, centroid):
+    distance1 = distance(centroid.column, centroid.row, contour_point[0], contour_point[1])
+    distance2 = distance(centroid.column, centroid.row, current_leg_point.column, current_leg_point.row)
+    return distance1 > distance2
+
+
+def Canny_edges(img):
+    img = np.uint8(img)
+
+    v = np.median(img)
+    sigma = 0.33
+
+    lower = int(max(0, (1.0 - sigma) * v))
+    upper = int(min(255, (1.0 + sigma) * v))
+
+    edge = cv2.Canny(img, lower, upper)
+    return edge
+
+
+def edges_to_array(edge):
+    array = np.zeros((edge.shape[0], edges.shape[1], 3))
+    array[edges == 255] = [255, 255, 255]
+    return array
+
+
 def find_head(img, img_height, img_width):
-    isObject = False
-    headFound = False
-    maxStart = 0
-    maxEnd = 0
-    currentStart = 0
-    index = 0
+    head_found = False
+    max_start = 0
+    max_end = 0
+    current_start = 0
 
     for i in range(1, img_height):
         for j in range(1, img_width):
             if img[i, j] == 1 and img[i, j - 1] == 0:
-                isObject = True
-                currentStart = j
-                headFound = True
+                current_start = j
+                head_found = True
             if img[i, j] == 0 and img[i, j - 1] == 1:
-                isObject = False
-                if j - 1 - currentStart > maxEnd - maxStart:
-                    maxStart = currentStart
-                    maxEnd = j - 1
-                count = 0
-        if headFound:
+                if j - 1 - current_start > max_end - max_start:
+                    max_start = current_start
+                    max_end = j - 1
+        if head_found:
             break
 
     head_row = i
-    head_column = int((maxStart + maxEnd) / 2)
+    head_column = int((max_start + max_end) / 2)
 
     head_coordinates = Coordinates(head_column, head_row)
 
@@ -97,26 +116,51 @@ def find_head(img, img_height, img_width):
 
 
 def find_centroid(img, img_height, img_width):
-    isObject = False
-    maxStart = 0
-    maxEnd = 0
-    currentStart = 0
+    max_start = 0
+    max_end = 0
+    current_start = 0
     for i in range(1, img_width):
         if img[int(img_height / 2), i] == 1 and img[int(img_height / 2), i - 1] == 0:
-            isObject = True
-            currentStart = i
+            current_start = i
         if img[int(img_height / 2), i] == 0 and img[int(img_height / 2), i - 1] == 1:
-            isObject = False
-            if i - 1 - currentStart > maxEnd - maxStart:
-                maxStart = currentStart
-                maxEnd = i - 1
-            count = 0
+            if i - 1 - current_start > max_end - max_start:
+                max_start = current_start
+                max_end = i - 1
 
     centroid_row = int(height / 2)
-    centroid_column = int((maxStart + maxEnd) / 2)
+    centroid_column = int((max_start + max_end) / 2)
 
     centroid_coordinates = Coordinates(centroid_column, centroid_row)
     return centroid_coordinates
+
+
+def find_legs(edge, centroid):
+    contours, hierarchy = cv2.findContours(edge, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    left_leg = copy.deepcopy(centroid)
+    right_leg = copy.deepcopy(centroid)
+    for i in range(len(contours)):
+        for j in range(0, contours[i].shape[0]):
+            if contours[i][j][0][1] > centroid.row:
+                # left leg:
+                if contours[i][j][0][0] < centroid.column:
+                    if contour_farther_from_centroid(contours[i][j][0], left_leg, centroid):
+                        left_leg.column = contours[i][j][0][0]
+                        left_leg.row = contours[i][j][0][1]
+                # right leg:
+                else:
+                    if contour_farther_from_centroid(contours[i][j][0], right_leg, centroid):
+                        right_leg.column = contours[i][j][0][0]
+                        right_leg.row = contours[i][j][0][1]
+
+    return left_leg, right_leg
+
+
+def draw_skeleton(edge_array, left, right, head, centroid):
+    cv2.line(edge_array, (left.column, left.row), (centroid.column, centroid.row), (255, 0, 0), 2)
+    cv2.line(edge_array, (right.column, right.row), (centroid.column, centroid.row), (255, 0, 0), 2)
+    cv2.line(edge_array, (head.column, head.row), (centroid.column, centroid.row), (255, 0, 0), 2)
+    return edge_array
 
 
 def plot_figures(image1, image2, image3, image4):
@@ -133,7 +177,7 @@ def plot_figures(image1, image2, image3, image4):
     plt.imshow(image2, cmap='Greys', interpolation='nearest')
 
     ax.append(fig.add_subplot(2, 2, 3))
-    ax[-1].set_title("First skeleton")
+    ax[-1].set_title("Canny edges")
     plt.imshow(image3, cmap='Greys', interpolation='nearest')
 
     ax.append(fig.add_subplot(2, 2, 4))
@@ -163,53 +207,13 @@ silhouette = binarize(image)
 head = find_head(silhouette, height, width)
 centroid = find_centroid(silhouette, height, width)
 
-legs = np.zeros((silhouette.shape[0], silhouette.shape[1], 3), dtype="uint8")
-legs[centroid.row, centroid.column] = [255, 0, 0]
+edges = Canny_edges(silhouette)
+edges_array = edges_to_array(edges)
+contours = copy.deepcopy(edges_array)
 
-# skeleton_final = skeletonize(dilated2_binary)
-# inv_skeleton_final = invert(skeleton_final)
-silhouette = np.uint8(silhouette)
+left_leg, right_leg = find_legs(edges, centroid)
 
-v = np.median(silhouette)
-sigma = 0.33
-
-lower = int(max(0, (1.0 - sigma) * v))
-upper = int(min(255, (1.0 + sigma) * v))
-
-edges = cv2.Canny(silhouette, lower, upper)
-
-edgesArray = np.zeros((edges.shape[0], edges.shape[1], 3))
-edgesArray[edges == 255] = [255, 255, 255]
-
-contours, hierarchy = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-
-leftLeg = copy.deepcopy(centroid)
-rightLeg = copy.deepcopy(centroid)
-for i in range(len(contours)):
-    for j in range(0, contours[i].shape[0]):
-        if contours[i][j][0][1] > centroid.row:
-            # left leg:
-            if contours[i][j][0][0] < centroid.column:
-                if distance(centroid.column, centroid.row, contours[i][j][0][0], contours[i][j][0][1]) > distance(
-                        centroid.column, centroid.row, leftLeg.column, leftLeg.row):
-                    leftLeg.column(i=contours[i][j][0][0])
-                    leftLeg.row(i=contours[i][j][0][1])
-            # right leg:
-            else:
-                if distance(centroid.column, centroid.row, contours[i][j][0][0], contours[i][j][0][1]) > distance(
-                        centroid.column, centroid.row, rightLeg.column, rightLeg.row):
-                    rightLeg.column(i=contours[i][j][0][0])
-                    rightLeg.row(i=contours[i][j][0][1])
-
-print(leftLeg)
-print(rightLeg)
-
-cv2.line(edgesArray, (leftLeg.column, leftLeg.row), (centroid.column, centroid.row), (0, 0, 255), 2)
-cv2.line(edgesArray, (rightLeg.column, rightLeg.row), (centroid.column, centroid.row), (0, 0, 255), 2)
-cv2.line(edgesArray, (head.column, head.row), (centroid.column, centroid.row), (0, 0, 255), 2)
-
-# cv2.imshow("Edges", edgesArray)
-# cv2.drawContours(image, contours, -1, (0, 255, 0), 3)
+skeleton = draw_skeleton(edges_array, left_leg, right_leg, head, centroid)
 
 # plotting
-plot_figures(invert(original_image_binary), invert(image), invert(image), edgesArray)
+plot_figures(invert(original_image_binary), invert(image), contours.astype(np.uint8), skeleton.astype(np.uint8))

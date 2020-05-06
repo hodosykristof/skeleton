@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d88ec4a2-5895-41fc-a51b-ade59bbe91cf" name="Default Changelist" comment="">
+    <list default="true" id="d88ec4a2-5895-41fc-a51b-ade59bbe91cf" name="Default Changelist" comment="small cleanup3.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/skeleton.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/skeleton.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/skeleton.png" beforeDir="false" afterPath="$PROJECT_DIR$/skeleton.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +137,7 @@
       <workItem from="1588761820319" duration="700000" />
       <workItem from="1588762539143" duration="1730000" />
       <workItem from="1588765711825" duration="21792000" />
-      <workItem from="1588798665175" duration="1621000" />
+      <workItem from="1588798665175" duration="8571000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1588783152301</created>
@@ -158,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588798286990</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="small cleanup3.0">
+      <created>1588800297527</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1588800297528</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,7 +177,8 @@
     <MESSAGE value="first commit" />
     <MESSAGE value="small cleanup" />
     <MESSAGE value="small cleanup2.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="small cleanup2.0" />
+    <MESSAGE value="small cleanup3.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="small cleanup3.0" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#Deployment" timestamp="1588768050993">
@@ -187,10 +197,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="788" y="362" key="#com.intellij.ide.actions.DebugLogConfigureAction/0.0.1920.1040@0.0.1920.1040" timestamp="1588762480540" />
-    <state x="105" y="97" key="CommitChangelistDialog2" timestamp="1588798286194">
+    <state x="105" y="97" key="CommitChangelistDialog2" timestamp="1588806715626">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="105" y="97" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1588798286194" />
+    <state x="105" y="97" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1588806715626" />
     <state width="464" height="466" key="DebuggerActiveHint" timestamp="1588238578013">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -207,22 +217,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="207" y="224" key="Github.UntrackedFilesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588782581536" />
-    <state width="916" height="279" key="GridCell.Tab.0.bottom" timestamp="1588800153908">
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1588807420486">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="916" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588800153908" />
-    <state width="916" height="279" key="GridCell.Tab.0.center" timestamp="1588800153908">
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588807420486" />
+    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1588807420486">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="916" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588800153908" />
-    <state width="916" height="279" key="GridCell.Tab.0.left" timestamp="1588800153908">
+    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588807420486" />
+    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1588807420486">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="916" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588800153908" />
-    <state width="916" height="279" key="GridCell.Tab.0.right" timestamp="1588800153908">
+    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588807420486" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1588807420486">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="916" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588800153908" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588807420486" />
     <state width="1877" height="346" key="GridCell.Tab.1.bottom" timestamp="1588798909753">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -243,18 +253,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="680" y="127" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1588799666397" />
-    <state x="72" y="256" key="Vcs.Push.Dialog.v2" timestamp="1588798293244">
+    <state x="72" y="256" key="Vcs.Push.Dialog.v2" timestamp="1588800305979">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="72" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1588798293244" />
+    <state x="72" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1588800305979" />
     <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1588215884266">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1588215884266" />
-    <state x="667" y="122" width="585" height="795" key="find.popup" timestamp="1588794697688">
+    <state x="667" y="122" width="585" height="795" key="find.popup" timestamp="1588804481219">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="122" width="585" height="795" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588794697688" />
+    <state x="667" y="122" width="585" height="795" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588804481219" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -268,7 +278,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/skeleton$main.coverage" NAME="main Coverage Results" MODIFIED="1588800153899" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/skeleton$main.coverage" NAME="main Coverage Results" MODIFIED="1588807420477" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/skeleton$test.coverage" NAME="test Coverage Results" MODIFIED="1588217030181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
