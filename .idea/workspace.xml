@@ -4,8 +4,6 @@
     <list default="true" id="d88ec4a2-5895-41fc-a51b-ade59bbe91cf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/skeleton.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/skeleton.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/skeleton.png" beforeDir="false" afterPath="$PROJECT_DIR$/skeleton.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +134,7 @@
       <workItem from="1588749810654" duration="6445000" />
       <workItem from="1588761820319" duration="700000" />
       <workItem from="1588762539143" duration="1730000" />
-      <workItem from="1588765711825" duration="19973000" />
+      <workItem from="1588765711825" duration="21412000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1588783152301</created>
@@ -145,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588783152301</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="small cleanup">
+      <created>1588796222608</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1588796222608</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,7 +158,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="small cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="small cleanup" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#Deployment" timestamp="1588768050993">
@@ -172,10 +178,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="788" y="362" key="#com.intellij.ide.actions.DebugLogConfigureAction/0.0.1920.1040@0.0.1920.1040" timestamp="1588762480540" />
-    <state x="105" y="97" key="CommitChangelistDialog2" timestamp="1588783108151">
+    <state x="105" y="97" key="CommitChangelistDialog2" timestamp="1588796221287">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="105" y="97" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1588783108151" />
+    <state x="105" y="97" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1588796221287" />
     <state width="464" height="466" key="DebuggerActiveHint" timestamp="1588238578013">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -192,46 +198,46 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="207" y="224" key="Github.UntrackedFilesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588782581536" />
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1588795874308">
+    <state width="1877" height="346" key="GridCell.Tab.0.bottom" timestamp="1588798037300">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588795874308" />
-    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1588795874308">
+    <state width="1877" height="346" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588798037300" />
+    <state width="1877" height="346" key="GridCell.Tab.0.center" timestamp="1588798037300">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588795874308" />
-    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1588795874308">
+    <state width="1877" height="346" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588798037300" />
+    <state width="1877" height="346" key="GridCell.Tab.0.left" timestamp="1588798037300">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588795874308" />
-    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1588795874308">
+    <state width="1877" height="346" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588798037300" />
+    <state width="1877" height="346" key="GridCell.Tab.0.right" timestamp="1588798037300">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588795874308" />
-    <state width="1877" height="346" key="GridCell.Tab.1.bottom" timestamp="1588795796004">
+    <state width="1877" height="346" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588798037300" />
+    <state width="1877" height="346" key="GridCell.Tab.1.bottom" timestamp="1588798037300">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588795796004" />
-    <state width="1877" height="346" key="GridCell.Tab.1.center" timestamp="1588795796004">
+    <state width="1877" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588798037300" />
+    <state width="1877" height="346" key="GridCell.Tab.1.center" timestamp="1588798037300">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588795796004" />
-    <state width="1877" height="346" key="GridCell.Tab.1.left" timestamp="1588795796004">
+    <state width="1877" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588798037300" />
+    <state width="1877" height="346" key="GridCell.Tab.1.left" timestamp="1588798037300">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588795796004" />
-    <state width="1877" height="346" key="GridCell.Tab.1.right" timestamp="1588795796004">
+    <state width="1877" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588798037300" />
+    <state width="1877" height="346" key="GridCell.Tab.1.right" timestamp="1588798037300">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588795796004" />
+    <state width="1877" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588798037300" />
     <state x="680" y="127" key="SettingsEditor" timestamp="1588790926046">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="680" y="127" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1588790926046" />
-    <state x="72" y="256" key="Vcs.Push.Dialog.v2" timestamp="1588783219321">
+    <state x="72" y="256" key="Vcs.Push.Dialog.v2" timestamp="1588796249767">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="72" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1588783219321" />
+    <state x="72" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1588796249767" />
     <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1588215884266">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -246,8 +252,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>87</line>
-          <option name="timeStamp" value="7" />
+          <line>158</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -260,7 +266,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/skeleton$main.coverage" NAME="main Coverage Results" MODIFIED="1588795874299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/skeleton$main.coverage" NAME="main Coverage Results" MODIFIED="1588798272621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/skeleton$test.coverage" NAME="test Coverage Results" MODIFIED="1588217030181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -12,17 +12,15 @@ import cv2
 
 @dataclass
 class Coordinates:
-    column: int
-    row: int
-
     def __init__(self, column, row):
-        self.column = column
-        self.row = row
+        self._column = column
+        self._row = row
 
     @property
     def column(self) -> int:
         return self.column
 
+    @property
     def row(self) -> int:
         return self.row
 
