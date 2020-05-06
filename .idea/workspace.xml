@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d88ec4a2-5895-41fc-a51b-ade59bbe91cf" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1adkUqf0p04aKXHUZMj9HCF7gxa" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="skeleton" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="skeleton" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.test" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d88ec4a2-5895-41fc-a51b-ade59bbe91cf" name="Default Changelist" comment="" />
+      <created>1587072876198</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587072876198</updated>
+      <workItem from="1587848554360" duration="1963000" />
+      <workItem from="1587927275520" duration="1812000" />
+      <workItem from="1587929109512" duration="4584000" />
+      <workItem from="1588098738444" duration="709000" />
+      <workItem from="1588100077401" duration="1932000" />
+      <workItem from="1588104421893" duration="2000" />
+      <workItem from="1588104443925" duration="434000" />
+      <workItem from="1588104892113" duration="791000" />
+      <workItem from="1588105698639" duration="5000" />
+      <workItem from="1588105731152" duration="1627000" />
+      <workItem from="1588108344818" duration="1830000" />
+      <workItem from="1588146563936" duration="37456000" />
+      <workItem from="1588544990511" duration="444000" />
+      <workItem from="1588545451703" duration="917000" />
+      <workItem from="1588749732042" duration="61000" />
+      <workItem from="1588749810654" duration="6445000" />
+      <workItem from="1588761820319" duration="700000" />
+      <workItem from="1588762539143" duration="1730000" />
+      <workItem from="1588765711825" duration="8669000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="178" key="#Deployment" timestamp="1588768050993">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#Deployment/0.0.1920.1040@0.0.1920.1040" timestamp="1588768050993" />
+    <state x="668" y="255" key="#Servers" timestamp="1588749840329">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="668" y="255" key="#Servers/0.0.1920.1040@0.0.1920.1040" timestamp="1588749840329" />
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588778509124">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588778509124" />
+    <state x="788" y="362" key="#com.intellij.ide.actions.DebugLogConfigureAction" timestamp="1588762480540">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="788" y="362" key="#com.intellij.ide.actions.DebugLogConfigureAction/0.0.1920.1040@0.0.1920.1040" timestamp="1588762480540" />
+    <state x="105" y="97" key="CommitChangelistDialog2" timestamp="1588782716142">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="105" y="97" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1588782716142" />
+    <state width="464" height="466" key="DebuggerActiveHint" timestamp="1588238578013">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="464" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1588238578013" />
+    <state x="952" y="327" key="FileChooserDialogImpl" timestamp="1588762938661">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="952" y="327" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588762938661" />
+    <state x="358" y="417" key="Github.ShareDialog" timestamp="1588782361805">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="358" y="417" key="Github.ShareDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588782361805" />
+    <state x="207" y="224" key="Github.UntrackedFilesDialog" timestamp="1588782581536">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="207" y="224" key="Github.UntrackedFilesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588782581536" />
+    <state width="457" height="282" key="GridCell.Tab.0.bottom" timestamp="1588780921148">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="457" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588780921148" />
+    <state width="457" height="282" key="GridCell.Tab.0.center" timestamp="1588780921148">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="457" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588780921148" />
+    <state width="457" height="282" key="GridCell.Tab.0.left" timestamp="1588780921148">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="457" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588780921148" />
+    <state width="457" height="282" key="GridCell.Tab.0.right" timestamp="1588780921148">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="457" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588780921148" />
+    <state width="938" height="347" key="GridCell.Tab.1.bottom" timestamp="1588778813787">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="347" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588778813787" />
+    <state width="938" height="347" key="GridCell.Tab.1.center" timestamp="1588778813787">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="347" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588778813787" />
+    <state width="938" height="347" key="GridCell.Tab.1.left" timestamp="1588778813787">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="347" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588778813787" />
+    <state width="938" height="347" key="GridCell.Tab.1.right" timestamp="1588778813787">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="347" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588778813787" />
+    <state x="680" y="127" key="SettingsEditor" timestamp="1588780208076">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="680" y="127" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1588780208076" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1588215884266">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1588215884266" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/skeleton$main.coverage" NAME="main Coverage Results" MODIFIED="1588780321144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/skeleton$test.coverage" NAME="test Coverage Results" MODIFIED="1588217030181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
