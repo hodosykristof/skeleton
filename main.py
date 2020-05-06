@@ -18,11 +18,19 @@ class Coordinates:
 
     @property
     def column(self) -> int:
-        return self.column
+        return self._column
 
     @property
     def row(self) -> int:
-        return self.row
+        return self._row
+
+    @column.setter
+    def column(self, i: int) -> None:
+        self._column = i
+
+    @row.setter
+    def row(self, i: int) -> None:
+        self._row = i
 
 
 def img_read(path):
@@ -183,21 +191,21 @@ for i in range(len(contours)):
             # left leg:
             if contours[i][j][0][0] < centroid.column:
                 if distance(centroid.column, centroid.row, contours[i][j][0][0], contours[i][j][0][1]) > distance(
-                        centroid.column, centroid.row, leftLeg[0], leftLeg[1]):
-                    leftLeg[0] = contours[i][j][0][0]
-                    leftLeg[1] = contours[i][j][0][1]
+                        centroid.column, centroid.row, leftLeg.column, leftLeg.row):
+                    leftLeg.column(i=contours[i][j][0][0])
+                    leftLeg.row(i=contours[i][j][0][1])
             # right leg:
             else:
                 if distance(centroid.column, centroid.row, contours[i][j][0][0], contours[i][j][0][1]) > distance(
-                        centroid.column, centroid.row, rightLeg[0], rightLeg[1]):
-                    rightLeg[0] = contours[i][j][0][0]
-                    rightLeg[1] = contours[i][j][0][1]
+                        centroid.column, centroid.row, rightLeg.column, rightLeg.row):
+                    rightLeg.column(i=contours[i][j][0][0])
+                    rightLeg.row(i=contours[i][j][0][1])
 
 print(leftLeg)
 print(rightLeg)
 
-cv2.line(edgesArray, (leftLeg[0], leftLeg[1]), (centroid.column, centroid.row), (0, 0, 255), 2)
-cv2.line(edgesArray, (rightLeg[0], rightLeg[1]), (centroid.column, centroid.row), (0, 0, 255), 2)
+cv2.line(edgesArray, (leftLeg.column, leftLeg.row), (centroid.column, centroid.row), (0, 0, 255), 2)
+cv2.line(edgesArray, (rightLeg.column, rightLeg.row), (centroid.column, centroid.row), (0, 0, 255), 2)
 cv2.line(edgesArray, (head.column, head.row), (centroid.column, centroid.row), (0, 0, 255), 2)
 
 # cv2.imshow("Edges", edgesArray)
