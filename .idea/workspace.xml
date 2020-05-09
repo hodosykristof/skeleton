@@ -1,7 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d88ec4a2-5895-41fc-a51b-ade59bbe91cf" name="Default Changelist" comment="small cleanup3.0">
+    <list default="true" id="d88ec4a2-5895-41fc-a51b-ade59bbe91cf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/2590_numbered.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_new_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ROI_skeleton_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/feature_points.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skeleton.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/skeleton.pdf" afterDir="false" />
@@ -29,12 +72,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1adkUqf0p04aKXHUZMj9HCF7gxa" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -137,7 +183,7 @@
       <workItem from="1588761820319" duration="700000" />
       <workItem from="1588762539143" duration="1730000" />
       <workItem from="1588765711825" duration="21792000" />
-      <workItem from="1588798665175" duration="8571000" />
+      <workItem from="1588798665175" duration="63752000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1588783152301</created>
@@ -167,18 +213,27 @@
       <option name="project" value="LOCAL" />
       <updated>1588800297528</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="cleanup">
+      <created>1588807510783</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1588807510783</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="first commit" />
     <MESSAGE value="small cleanup" />
     <MESSAGE value="small cleanup2.0" />
     <MESSAGE value="small cleanup3.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="small cleanup3.0" />
+    <MESSAGE value="cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleanup" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#Deployment" timestamp="1588768050993">
@@ -197,10 +252,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="788" y="362" key="#com.intellij.ide.actions.DebugLogConfigureAction/0.0.1920.1040@0.0.1920.1040" timestamp="1588762480540" />
-    <state x="105" y="97" key="CommitChangelistDialog2" timestamp="1588806715626">
+    <state x="105" y="97" key="CommitChangelistDialog2" timestamp="1588807509760">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="105" y="97" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1588806715626" />
+    <state x="105" y="97" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1588807509760" />
     <state width="464" height="466" key="DebuggerActiveHint" timestamp="1588238578013">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -217,50 +272,50 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="207" y="224" key="Github.UntrackedFilesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588782581536" />
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1588807420486">
+    <state width="916" height="347" key="GridCell.Tab.0.bottom" timestamp="1588987559055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588807420486" />
-    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1588807420486">
+    <state width="916" height="347" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588987559055" />
+    <state width="916" height="347" key="GridCell.Tab.0.center" timestamp="1588987559055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588807420486" />
-    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1588807420486">
+    <state width="916" height="347" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588987559055" />
+    <state width="916" height="347" key="GridCell.Tab.0.left" timestamp="1588987559055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588807420486" />
-    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1588807420486">
+    <state width="916" height="347" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588987559055" />
+    <state width="916" height="347" key="GridCell.Tab.0.right" timestamp="1588987559055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588807420486" />
-    <state width="1877" height="346" key="GridCell.Tab.1.bottom" timestamp="1588798909753">
+    <state width="916" height="347" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588987559055" />
+    <state width="916" height="347" key="GridCell.Tab.1.bottom" timestamp="1588987559055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588798909753" />
-    <state width="1877" height="346" key="GridCell.Tab.1.center" timestamp="1588798909753">
+    <state width="916" height="347" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588987559055" />
+    <state width="916" height="347" key="GridCell.Tab.1.center" timestamp="1588987559055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588798909753" />
-    <state width="1877" height="346" key="GridCell.Tab.1.left" timestamp="1588798909753">
+    <state width="916" height="347" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588987559055" />
+    <state width="916" height="347" key="GridCell.Tab.1.left" timestamp="1588987559055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588798909753" />
-    <state width="1877" height="346" key="GridCell.Tab.1.right" timestamp="1588798909753">
+    <state width="916" height="347" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588987559055" />
+    <state width="916" height="347" key="GridCell.Tab.1.right" timestamp="1588987559055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588798909753" />
+    <state width="916" height="347" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588987559055" />
     <state x="680" y="127" key="SettingsEditor" timestamp="1588799666397">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="680" y="127" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1588799666397" />
-    <state x="72" y="256" key="Vcs.Push.Dialog.v2" timestamp="1588800305979">
+    <state x="72" y="256" key="Vcs.Push.Dialog.v2" timestamp="1588807521230">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="72" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1588800305979" />
-    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1588215884266">
+    <state x="72" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1588807521230" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1588898848727">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1588215884266" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1588898848727" />
     <state x="667" y="122" width="585" height="795" key="find.popup" timestamp="1588804481219">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -268,6 +323,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>377</line>
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -278,7 +340,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/skeleton$main.coverage" NAME="main Coverage Results" MODIFIED="1588807420477" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/skeleton$test.coverage" NAME="test Coverage Results" MODIFIED="1588217030181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/skeleton$main.coverage" NAME="main Coverage Results" MODIFIED="1588987592885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/skeleton$test.coverage" NAME="test Coverage Results" MODIFIED="1588888925519" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
