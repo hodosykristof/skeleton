@@ -2,157 +2,109 @@
     "player 1": [
         {
             "name": "left_leg",
-            "x_coordinate": 2468,
-            "y_coordinate": 940
+            "x_coordinate": 2550,
+            "y_coordinate": 919
         },
         {
             "name": "right_leg",
-            "x_coordinate": 2394,
-            "y_coordinate": 919
+            "x_coordinate": 2484,
+            "y_coordinate": 904
         }
     ],
     "player 2": [
         {
             "name": "left_leg",
-            "x_coordinate": 2151,
-            "y_coordinate": 938
+            "x_coordinate": 2051,
+            "y_coordinate": 729
         },
         {
             "name": "right_leg",
-            "x_coordinate": 2116,
-            "y_coordinate": 917
+            "x_coordinate": 2052,
+            "y_coordinate": 714
         }
     ],
     "player 3": [
         {
             "name": "left_leg",
-            "x_coordinate": 2965,
-            "y_coordinate": 854
+            "x_coordinate": 2303,
+            "y_coordinate": 726
         },
         {
             "name": "right_leg",
-            "x_coordinate": 2933,
-            "y_coordinate": 851
+            "x_coordinate": 2313,
+            "y_coordinate": 715
         }
     ],
     "player 4": [
         {
             "name": "left_leg",
-            "x_coordinate": 2038,
-            "y_coordinate": 768
+            "x_coordinate": 2095,
+            "y_coordinate": 726
         },
         {
             "name": "right_leg",
-            "x_coordinate": 1972,
-            "y_coordinate": 764
+            "x_coordinate": 2164,
+            "y_coordinate": 740
         }
     ],
     "player 5": [
         {
             "name": "left_leg",
-            "x_coordinate": 2230,
-            "y_coordinate": 665
+            "x_coordinate": 2135,
+            "y_coordinate": 601
         },
         {
             "name": "right_leg",
-            "x_coordinate": 2265,
-            "y_coordinate": 670
+            "x_coordinate": 2135,
+            "y_coordinate": 601
         }
     ],
     "player 6": [
         {
             "name": "left_leg",
-            "x_coordinate": 1970,
-            "y_coordinate": 661
+            "x_coordinate": 3168,
+            "y_coordinate": 619
         },
         {
             "name": "right_leg",
-            "x_coordinate": 1981,
-            "y_coordinate": 661
+            "x_coordinate": 3188,
+            "y_coordinate": 643
         }
     ],
     "player 7": [
         {
             "name": "left_leg",
-            "x_coordinate": 3124,
-            "y_coordinate": 687
+            "x_coordinate": 2221,
+            "y_coordinate": 601
         },
         {
             "name": "right_leg",
-            "x_coordinate": 3043,
-            "y_coordinate": 702
+            "x_coordinate": 2227,
+            "y_coordinate": 601
         }
     ],
     "player 8": [
         {
             "name": "left_leg",
-            "x_coordinate": 2260,
-            "y_coordinate": 606
+            "x_coordinate": 3089,
+            "y_coordinate": 600
         },
         {
             "name": "right_leg",
-            "x_coordinate": 2272,
-            "y_coordinate": 605
+            "x_coordinate": 3071,
+            "y_coordinate": 600
         }
     ],
     "player 9": [
         {
             "name": "left_leg",
-            "x_coordinate": 2010,
-            "y_coordinate": 594
+            "x_coordinate": 2567,
+            "y_coordinate": 603
         },
         {
             "name": "right_leg",
-            "x_coordinate": 2024,
-            "y_coordinate": 595
-        }
-    ],
-    "player 10": [
-        {
-            "name": "left_leg",
-            "x_coordinate": 3204,
-            "y_coordinate": 568
-        },
-        {
-            "name": "right_leg",
-            "x_coordinate": 3226,
-            "y_coordinate": 591
-        }
-    ],
-    "player 11": [
-        {
-            "name": "left_leg",
-            "x_coordinate": 2815,
-            "y_coordinate": 594
-        },
-        {
-            "name": "right_leg",
-            "x_coordinate": 2748,
-            "y_coordinate": 598
-        }
-    ],
-    "player 12": [
-        {
-            "name": "left_leg",
-            "x_coordinate": 3202,
-            "y_coordinate": 516
-        },
-        {
-            "name": "right_leg",
-            "x_coordinate": 3211,
-            "y_coordinate": 516
-        }
-    ],
-    "player 13": [
-        {
-            "name": "left_leg",
-            "x_coordinate": 3182,
-            "y_coordinate": 475
-        },
-        {
-            "name": "right_leg",
-            "x_coordinate": 3170,
-            "y_coordinate": 472
+            "x_coordinate": 2580,
+            "y_coordinate": 603
         }
     ]
 }

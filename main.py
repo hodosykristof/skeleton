@@ -11,6 +11,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 
+input_num = "2780"
+filename = input_num + "_bw.png"
+source = "input/" + filename
+
 
 @dataclass
 class Coordinates:
@@ -212,6 +216,52 @@ def find_centroid(img, img_height, img_width):
     return centroid_coordinates
 
 
+def find_shoulders(head, centroid):
+    column_dist = head.column - centroid.column
+    row_dist = head.row - centroid.row
+    column_offset = int(column_dist * 11 / 16)
+    row_offset = int(row_dist * 11 / 16)
+    shoulder_column = centroid.column + column_offset
+    shoulder_row = centroid.row + row_offset
+
+    shoulder_coordinates = Coordinates(shoulder_column, shoulder_row)
+    return shoulder_coordinates
+
+
+def find_left_hand(edge, shoulders, centroid):
+    contours, hierarchy = cv2.findContours(edge, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    left_hand = copy.deepcopy(shoulders)
+    shoulders_centroid_dist = distance(shoulders.column, shoulders.row, centroid.column, centroid.row)
+    shoulders_hand_dist = int(shoulders_centroid_dist * 3.75 / 2.75)
+    for i in range(0, contours[0].shape[0]):
+        if contours[0][i][0][0] < shoulders.column and abs(
+                distance(contours[0][i][0][0], contours[0][i][0][1], shoulders.column,
+                         shoulders.row) - shoulders_hand_dist) < abs(
+            distance(left_hand.column, left_hand.row, shoulders.column, shoulders.row) - shoulders_hand_dist):
+            left_hand.column = contours[0][i][0][0]
+            left_hand.row = contours[0][i][0][1]
+
+    return left_hand
+
+
+def find_right_hand(edge, shoulders, centroid):
+    contours, hierarchy = cv2.findContours(edge, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    right_hand = copy.deepcopy(shoulders)
+    shoulders_centroid_dist = distance(shoulders.column, shoulders.row, centroid.column, centroid.row)
+    shoulders_hand_dist = int(shoulders_centroid_dist * 3.75 / 2.75)
+    for i in range(0, contours[0].shape[0]):
+        if contours[0][i][0][0] > shoulders.column and abs(
+                distance(contours[0][i][0][0], contours[0][i][0][1], shoulders.column,
+                         shoulders.row) - shoulders_hand_dist) < abs(
+            distance(right_hand.column, right_hand.row, shoulders.column, shoulders.row) - shoulders_hand_dist):
+            right_hand.column = contours[0][i][0][0]
+            right_hand.row = contours[0][i][0][1]
+
+    return right_hand
+
+
 def find_legs(edge, centroid):
     contours, hierarchy = cv2.findContours(edge, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
@@ -266,10 +316,12 @@ def is_below_line(l1, l2, p):
     return p.row > m * p.column + b
 
 
-def draw_skeleton(edge_array, left, right, head, centroid):
+def draw_skeleton(edge_array, left, right, head, centroid, shoulders, hand1, hand2):
     cv2.line(edge_array, (left.column, left.row), (centroid.column, centroid.row), (255, 0, 0), 2)
     cv2.line(edge_array, (right.column, right.row), (centroid.column, centroid.row), (255, 0, 0), 2)
     cv2.line(edge_array, (head.column, head.row), (centroid.column, centroid.row), (255, 0, 0), 2)
+    cv2.line(edge_array, (hand1.column, hand1.row), (shoulders.column, shoulders.row), (255, 0, 0), 2)
+    cv2.line(edge_array, (hand2.column, hand2.row), (shoulders.column, shoulders.row), (255, 0, 0), 2)
 
 
 def filter_ROI(img, contour, w, h, x, y):
@@ -289,6 +341,7 @@ def find_correct_endpoints(ends, intersects, w, h, centroid):
         for i in intersects:
             if 0 < distance(e.column, e.row, i.column, i.row) < h * w / 2000:
                 small = True
+                intersects.remove(i)
                 break
         if e.row > centroid.row and small is False:
             good_ends.append(e)
@@ -305,7 +358,7 @@ def find_correct_endpoints(ends, intersects, w, h, centroid):
     return good_ends
 
 
-def find_legs2(good_ends, ROI_array, ROI_mod, ROI_number, head, centroid):
+def find_legs2(good_ends, ROI_mod, centroid):
     leg1 = copy.deepcopy(centroid)
     leg2 = copy.deepcopy(centroid)
     for e in good_ends:
@@ -325,25 +378,28 @@ def find_legs2(good_ends, ROI_array, ROI_mod, ROI_number, head, centroid):
                     leg2.row = e.row
                     leg2.column = e.column
 
-    draw_skeleton(ROI_array, leg1, leg2, head, centroid)
-    cv2.imwrite('ROI_new_{}.png'.format(ROI_number), ROI_array)
-
     return leg1, leg2
 
 
-def draw_all_skeletons(player_contours, centroid, head, leg1, leg2, offset):
+def draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, hand1, hand2, offset):
     centroid_offset = offset_points(centroid, offset)
     head_offset = offset_points(head, offset)
     leg1_offset = offset_points(leg1, offset)
     leg2_offset = offset_points(leg2, offset)
+    shoulders_offset = offset_points(shoulders, offset)
+    hand1_offset = offset_points(hand1, offset)
+    hand2_offset = offset_points(hand2, offset)
 
-    draw_skeleton(player_contours, leg1_offset, leg2_offset, head_offset, centroid_offset)
+    draw_skeleton(player_contours, leg1_offset, leg2_offset, head_offset, centroid_offset, shoulders_offset, hand1_offset, hand2_offset)
 
     return player_contours
 
 
 def find_players(cntrs, player_contours):
     ROI_number = 0
+    hands = []
+    centroids = []
+    shoulderss = []
     legs = []
 
     for c in cntrs:
@@ -369,10 +425,53 @@ def find_players(cntrs, player_contours):
 
         correct_endpoints = find_correct_endpoints(ends, intersects, w, h, centroid)
 
-        leg1, leg2 = find_legs2(correct_endpoints, ROI_array, ROI_mod, ROI_number, head, centroid)
+        leg1, leg2 = find_legs2(correct_endpoints, ROI_mod, centroid)
 
-        draw_all_skeletons(player_contours, centroid, head, leg1, leg2, offset)
+        shoulders = find_shoulders(head, centroid)
+
+        # print(ROI_number)
+        possible_hands = []
+        for e in ends:
+            small = False
+            for i in intersects:
+                if 0 < distance(e.column, e.row, i.column, i.row) < h * w / 800:
+                    small = True
+                    break
+            intersects = [i for i in intersects if not 0 < distance(e.column, e.row, i.column, i.row) < h * w / 800]
+            if small is False and not (e.row == leg1.row and e.column == leg1.column) \
+                    and not (e.row == leg2.row and e.column == leg2.column) \
+                    and distance(e.column, e.row, leg1.column, leg1.row) > h * w / 350 \
+                    and distance(e.column, e.row, leg2.column, leg2.row) > h * w / 350 \
+                    and distance(e.column, e.row, head.column, head.row) > h * w / 380 \
+                    and e.row <= centroid.row:
+                possible_hands.append(e)
+                # print(e.column, ";", e.row)
+
+        if len(possible_hands) >= 2:
+            hand1 = Coordinates(possible_hands[0].column, possible_hands[0].row)
+            hand2 = Coordinates(possible_hands[1].column, possible_hands[1].row)
+
+        elif len(possible_hands) == 1:
+            hand1 = Coordinates(possible_hands[0].column, possible_hands[0].row)
+            if possible_hands[0].column < shoulders.column:
+                hand2 = find_right_hand(ROI_mod, shoulders, centroid)
+            else:
+                hand2 = find_left_hand(ROI_mod, shoulders, centroid)
+
+        else:
+            hand1 = find_right_hand(ROI_mod, shoulders, centroid)
+            hand2 = find_left_hand(ROI_mod, shoulders, centroid)
+        # print("-----------------------------------------------------------------")
+
+        draw_skeleton(ROI_array, leg1, leg2, head, centroid, shoulders, hand1, hand2)
+        cv2.imwrite("output/ROI_new_{}.png".format(ROI_number), ROI_array)
+
+        draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, hand1, hand2, offset)
+        hands.append([hand1, hand2])
+        shoulderss.append(shoulders)
+        centroids.append(centroid)
         legs.append([leg1, leg2])
+
 
     export_legs(legs)
     return player_contours
@@ -405,7 +504,7 @@ def plot_figures(image1, image2, image3, image4):
     plt.show()
 
 
-original_image = img_read("2590_bw.png")
+original_image = img_read(source)
 
 height, width = original_image.shape
 
@@ -427,4 +526,5 @@ player_contours = draw_player_contours(correct_contours)
 find_players(correct_contours, player_contours)
 
 # plotting
-plot_figures(invert(original_image_binary), invert(image), all_contours.astype(np.uint8), player_contours.astype(np.uint8))
+plot_figures(invert(original_image_binary), invert(image), all_contours.astype(np.uint8),
+             player_contours.astype(np.uint8))
