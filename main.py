@@ -349,7 +349,7 @@ def find_knees_and_elbows(ROI_mod, contours, centroid, hip1, hip2, leg1, leg2, s
             x = int(m_x + x_offset)
             y = int(m_y + y_offset)
             if w > x >= 0 and h > y >= 0:
-                if ROI_mod[x][y] == 255:
+                if ROI_mod[y][x] == 255:
                     left_elbow.column = x
                     left_elbow.row = y
                     break
@@ -357,7 +357,7 @@ def find_knees_and_elbows(ROI_mod, contours, centroid, hip1, hip2, leg1, leg2, s
             x = int(m_x - x_offset)
             y = int(m_y - y_offset)
             if w > x >= 0 and h > y >= 0:
-                if ROI_mod[x][y] == 255:
+                if ROI_mod[y][x] == 255:
                     left_elbow.column = x
                     left_elbow.row = y
                     break
@@ -374,16 +374,15 @@ def find_knees_and_elbows(ROI_mod, contours, centroid, hip1, hip2, leg1, leg2, s
             x = int(m_x + x_offset)
             y = int(m_y + y_offset)
             if w > x >= 0 and h > y >= 0:
-                if ROI_mod[x][y] == 255:
+                if ROI_mod[y][x] == 255:
                     right_elbow.column = x
                     right_elbow.row = y
                     break
 
-
             x = int(m_x - x_offset)
             y = int(m_y - y_offset)
             if w > x >= 0 and h > y >= 0:
-                if ROI_mod[x][y] == 255:
+                if ROI_mod[y][x] == 255:
                     right_elbow.column = x
                     right_elbow.row = y
                     break
@@ -399,7 +398,7 @@ def find_knees_and_elbows(ROI_mod, contours, centroid, hip1, hip2, leg1, leg2, s
             x = int(m_x + x_offset)
             y = int(m_y + y_offset)
             if w > x >= 0 and h > y >= 0:
-                if ROI_mod[x][y] == 255:
+                if ROI_mod[y][x] == 255:
                     left_knee.column = x
                     left_knee.row = y
                     break
@@ -407,7 +406,7 @@ def find_knees_and_elbows(ROI_mod, contours, centroid, hip1, hip2, leg1, leg2, s
             x = int(m_x - x_offset)
             y = int(m_y - y_offset)
             if w > x >= 0 and h > y >= 0:
-                if ROI_mod[x][y] == 255:
+                if ROI_mod[y][x] == 255:
                     left_knee.column = x
                     left_knee.row = y
                     break
@@ -423,16 +422,15 @@ def find_knees_and_elbows(ROI_mod, contours, centroid, hip1, hip2, leg1, leg2, s
             x = int(m_x + x_offset)
             y = int(m_y + y_offset)
             if w > x >= 0 and h > y >= 0:
-                if ROI_mod[x][y] == 255:
+                if ROI_mod[y][x] == 255:
                     right_knee.column = x
                     right_knee.row = y
                     break
 
-
             x = int(m_x - x_offset)
             y = int(m_y - y_offset)
             if w > x >= 0 and h > y >= 0:
-                if ROI_mod[x][y] == 255:
+                if ROI_mod[y][x] == 255:
                     right_knee.column = x
                     right_knee.row = y
                     break
@@ -476,8 +474,12 @@ def line_parameters(p1, p2):
 def perpendicular_parameters(p1, p2):
     n_x = p2.column - p1.column
     n_y = p2.row - p1.row
-    m = 0 - n_x/n_y
-    b = int(n_x/n_y*p1.column + p1.row)
+    if n_y != 0:
+        m = 0 - n_x / n_y
+        b = int(n_x / n_y * p1.column + p1.row)
+    else:
+        m = 0 - n_x / 0.01
+        b = int(n_x / 0.01 * p1.column + p1.row)
 
     return m, b
 
@@ -494,31 +496,50 @@ def is_below_line(l1, l2, p):
 
 
 def draw_skeleton(edge_array, leg1, leg2, head, centroid, shoulders, hand1, hand2, hip1, hip2, shoulder1, shoulder2,
-                  center_col, center_row, radius):
+                  elbow1, elbow2, knee1, knee2, center_col, center_row, radius):
     cv2.line(edge_array, (hip1.column, hip1.row), (centroid.column, centroid.row), (255, 0, 0), 2)
     cv2.line(edge_array, (hip2.column, hip2.row), (centroid.column, centroid.row), (255, 0, 0), 2)
-    if (hip1.column < hip2.column and leg1.column < leg2.column) or (hip1.column > hip2.column and
-                                                                     leg1.column > leg2.column):
-        cv2.line(edge_array, (leg1.column, leg1.row), (hip1.column, hip1.row), (255, 0, 0), 2)
-        cv2.line(edge_array, (leg2.column, leg2.row), (hip2.column, hip2.row), (255, 0, 0), 2)
+    if leg1.column > leg2.column:
+        leg1, leg2 = exchange_two_points(leg1, leg2)
+
+    if hand1.column > hand2.column:
+        hand1, hand2 = exchange_two_points(hand1, hand2)
+
+    if hip1.column > hip2.column:
+        hip1, hip2 = exchange_two_points(hip1, hip2)
+
+    if shoulder1.column > shoulder2.column:
+        shoulder1, shoulder2 = exchange_two_points(shoulder1, shoulder2)
+
+    if knee1.column != 0 and knee1.row != 0:
+        cv2.line(edge_array, (knee1.column, knee1.row), (hip1.column, hip1.row), (255, 0, 0), 2)
+        cv2.line(edge_array, (knee1.column, knee1.row), (leg1.column, leg1.row), (255, 0, 0), 2)
 
     else:
-        cv2.line(edge_array, (leg1.column, leg1.row), (hip2.column, hip2.row), (255, 0, 0), 2)
-        cv2.line(edge_array, (leg2.column, leg2.row), (hip1.column, hip1.row), (255, 0, 0), 2)
+        cv2.line(edge_array, (leg1.column, leg1.row), (hip1.column, hip1.row), (255, 0, 0), 2)
+
+    if knee2.column != 0 and knee2.row != 0:
+        cv2.line(edge_array, (knee2.column, knee2.row), (hip2.column, hip2.row), (255, 0, 0), 2)
+        cv2.line(edge_array, (knee2.column, knee2.row), (leg2.column, leg2.row), (255, 0, 0), 2)
+    else:
+        cv2.line(edge_array, (leg2.column, leg2.row), (hip2.column, hip2.row), (255, 0, 0), 2)
 
 
     cv2.line(edge_array, (head.column, head.row), (centroid.column, centroid.row), (255, 0, 0), 2)
     cv2.line(edge_array, (shoulders.column, shoulders.row), (shoulder1.column, shoulder1.row), (255, 0, 0), 2)
     cv2.line(edge_array, (shoulders.column, shoulders.row), (shoulder2.column, shoulder2.row), (255, 0, 0), 2)
 
-    if(shoulder1.column < shoulder2.column and hand1.column < hand2.column) or (shoulder1.column > shoulder2.column
-                                                                                and hand1.column > hand2.column):
-        cv2.line(edge_array, (hand1.column, hand1.row), (shoulder1.column, shoulder1.row), (255, 0, 0), 2)
-        cv2.line(edge_array, (hand2.column, hand2.row), (shoulder2.column, shoulder2.row), (255, 0, 0), 2)
-
+    if elbow1.column != 0 and elbow1.row != 0:
+        cv2.line(edge_array, (elbow1.column, elbow1.row), (shoulder1.column, shoulder1.row), (255, 0, 0), 2)
+        cv2.line(edge_array, (elbow1.column, elbow1.row), (hand1.column, hand1.row), (255, 0, 0), 2)
     else:
-        cv2.line(edge_array, (hand1.column, hand1.row), (shoulder2.column, shoulder2.row), (255, 0, 0), 2)
-        cv2.line(edge_array, (hand2.column, hand2.row), (shoulder1.column, shoulder1.row), (255, 0, 0), 2)
+        cv2.line(edge_array, (hand1.column, hand1.row), (shoulder1.column, shoulder1.row), (255, 0, 0), 2)
+
+    if elbow2.column != 0 and elbow2.row != 0:
+        cv2.line(edge_array, (elbow2.column, elbow2.row), (shoulder2.column, shoulder2.row), (255, 0, 0), 2)
+        cv2.line(edge_array, (elbow2.column, elbow2.row), (hand2.column, hand2.row), (255, 0, 0), 2)
+    else:
+        cv2.line(edge_array, (hand2.column, hand2.row), (shoulder2.column, shoulder2.row), (255, 0, 0), 2)
 
     cv2.circle(edge_array, (center_col, center_row), radius, (255, 0, 0), -1)
 
@@ -648,7 +669,7 @@ def find_both_shoulders(centroid, shoulders, shoulder_width):
 
 
 def draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, hand1, hand2, hip1, hip2, shoulder1,
-                       shoulder2, offset, center_col, center_row, radius):
+                       shoulder2, elbow1, elbow2, knee1, knee2, offset, center_col, center_row, radius):
     centroid_offset = offset_points(centroid, offset)
     head_offset = offset_points(head, offset)
     leg1_offset = offset_points(leg1, offset)
@@ -660,10 +681,14 @@ def draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, h
     hip2_offset = offset_points(hip2, offset)
     shoulder1_offset = offset_points(shoulder1, offset)
     shoulder2_offset = offset_points(shoulder2, offset)
+    elbow1_offset = offset_points(elbow1, offset)
+    elbow2_offset = offset_points(elbow2, offset)
+    knee1_offset = offset_points(knee1, offset)
+    knee2_offset = offset_points(knee2, offset)
 
     draw_skeleton(player_contours, leg1_offset, leg2_offset, head_offset, centroid_offset, shoulders_offset,
                   hand1_offset, hand2_offset, hip1_offset, hip2_offset, shoulder1_offset, shoulder2_offset,
-                  center_col, center_row, radius)
+                  elbow1_offset, elbow2_offset, knee1_offset, knee2_offset, center_col, center_row, radius)
 
     return player_contours
 
@@ -727,14 +752,20 @@ def find_players(cntrs, player_contours, index, original_array):
 
         radius = int(distance(shoulders.column, shoulders.row, centroid.column, centroid.row) / 5.5)
 
+        print(ROI_number)
+        print("elbow1:")
         coordinates_printer(elbow1)
+        print("elbow2:")
         coordinates_printer(elbow2)
+        print("knee1:")
         coordinates_printer(knee1)
+        print("knee2:")
         coordinates_printer(knee2)
+        print("-----------------------------------------------")
 
         ROI_contour = copy.deepcopy(ROI_array)
         draw_skeleton(ROI_array, leg1, leg2, head, centroid, shoulders, hand1, hand2, hip1, hip2, shoulder1, shoulder2,
-                      head_center_column, head_center_row, radius)
+                      elbow1, elbow2, knee1, knee2, head_center_column, head_center_row, radius)
         cv2.drawContours(ROI_contour, ROI_contours, -1, (0, 0, 255), 1)
 
         # Path("output/" + index + "/contours").mkdir(parents=True, exist_ok=True)
@@ -749,7 +780,7 @@ def find_players(cntrs, player_contours, index, original_array):
             collision = True
 
         draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, hand1, hand2, hip1, hip2, shoulder1,
-                           shoulder2, offset, head_center_column, head_center_row, radius)
+                           shoulder2, elbow1, elbow2, knee1, knee2, offset, head_center_column, head_center_row, radius)
 
         hands.append([hand1, hand2])
         shoulderss.append(shoulders)
