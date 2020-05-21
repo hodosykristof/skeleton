@@ -46,16 +46,6 @@ def distance(x1, y1, x2, y2):
     return math.sqrt(square_x + square_y)
 
 
-# def connecting_line_parameters(p1, p2):
-#     m = int((p2.row - p1.row) / (p2.column - p1.column))
-#     b = p1.row - m * p1.column
-#     return m, b
-#
-#
-# def is_above(p, m, b):
-#     return m * p.column + b - p.row < 0
-
-
 def contour_farther_from_centroid(contour_point, current_leg_point, centroid):
     distance1 = distance(centroid.column, centroid.row, contour_point[0], contour_point[1])
     distance2 = distance(centroid.column, centroid.row, current_leg_point.column, current_leg_point.row)
@@ -203,7 +193,8 @@ def find_centroid(img, img_height, img_width):
     centroid_column = int((max_start + max_end) / 2)
 
     centroid_coordinates = classes.Coordinates(centroid_column, centroid_row)
-    return centroid_coordinates
+    hip_width = max_end - max_start
+    return centroid_coordinates, hip_width
 
 
 def find_shoulders(head, centroid):
@@ -241,12 +232,10 @@ def find_left_hand(edge, shoulders, centroid):
         current_diff = int(abs(current_dist - shoulders_hand_dist))
         previous_dist = distance(left_hand.column, left_hand.row, shoulders.column, shoulders.row)
         previous_diff = int(abs(previous_dist - shoulders_hand_dist))
-        b = is_below_line(shoulders, centroid, point)
-        if (b is True) and (current_diff < previous_diff):
+        if is_below_line(shoulders, centroid, point) == True and current_diff < previous_diff:
             left_hand.column = point.column
             left_hand.row = point.row
 
-    print("left")
     return left_hand
 
 
@@ -262,12 +251,10 @@ def find_right_hand(edge, shoulders, centroid):
         current_diff = int(abs(current_dist - shoulders_hand_dist))
         previous_dist = distance(right_hand.column, right_hand.row, shoulders.column, shoulders.row)
         previous_diff = int(abs(previous_dist - shoulders_hand_dist))
-        b = is_below_line(shoulders, centroid, point)
-        if (b is False) and (current_diff < previous_diff):
+        if is_below_line(shoulders, centroid, point) == False and current_diff < previous_diff:
             right_hand.column = point.column
             right_hand.row = point.row
 
-    print("right")
     return right_hand
 
 
@@ -319,19 +306,60 @@ def offset_points(point, offset):
     return point
 
 
+def line_parameters(p1, p2):
+    m = (p2.row - p1.row) / (p2.column - p1.column)
+    b = p1.row - m * p1.column
+    return m, b
+
+
+def perpendicular_parameters(p1, p2):
+    n_x = p2.column - p1.column
+    n_y = p2.row - p1.row
+    m = 0 - n_x/n_y
+    b = int(n_x/n_y*p1.column + p1.row)
+
+    return m, b
+
+
+def calculate_perpendicular_offset(m, r):
+    x = int(math.sqrt(r ** 2 / (1 + m ** 2)))
+    y = int(x*m)
+    return x, y
+
+
 def is_below_line(l1, l2, p):
-    m = (l2.row - l1.row) / (l2.column - l1.column)
-    b = l1.row - m * l1.column
+    m, b = line_parameters(l1, l2)
     return p.row > m * p.column + b
 
 
-def draw_skeleton(edge_array, left, right, head, centroid, shoulders, hand1, hand2, center_col, center_row, radius):
-    cv2.line(edge_array, (left.column, left.row), (centroid.column, centroid.row), (255, 0, 0), 2)
-    cv2.line(edge_array, (right.column, right.row), (centroid.column, centroid.row), (255, 0, 0), 2)
+def draw_skeleton(edge_array, leg1, leg2, head, centroid, shoulders, hand1, hand2, hip1, hip2, shoulder1, shoulder2,
+                  center_col, center_row, radius):
+    cv2.line(edge_array, (hip1.column, hip1.row), (centroid.column, centroid.row), (255, 0, 0), 2)
+    cv2.line(edge_array, (hip2.column, hip2.row), (centroid.column, centroid.row), (255, 0, 0), 2)
+    if (hip1.column < hip2.column and leg1.column < leg2.column) or (hip1.column > hip2.column and
+                                                                     leg1.column > leg2.column):
+        cv2.line(edge_array, (leg1.column, leg1.row), (hip1.column, hip1.row), (255, 0, 0), 2)
+        cv2.line(edge_array, (leg2.column, leg2.row), (hip2.column, hip2.row), (255, 0, 0), 2)
+
+    else:
+        cv2.line(edge_array, (leg1.column, leg1.row), (hip2.column, hip2.row), (255, 0, 0), 2)
+        cv2.line(edge_array, (leg2.column, leg2.row), (hip1.column, hip1.row), (255, 0, 0), 2)
+
+
     cv2.line(edge_array, (head.column, head.row), (centroid.column, centroid.row), (255, 0, 0), 2)
-    cv2.line(edge_array, (hand1.column, hand1.row), (shoulders.column, shoulders.row), (255, 0, 0), 2)
-    cv2.line(edge_array, (hand2.column, hand2.row), (shoulders.column, shoulders.row), (255, 0, 0), 2)
-    cv2.circle(edge_array, (center_col, center_row), radius, (255, 0, 0), 2)
+    cv2.line(edge_array, (shoulders.column, shoulders.row), (shoulder1.column, shoulder1.row), (255, 0, 0), 2)
+    cv2.line(edge_array, (shoulders.column, shoulders.row), (shoulder2.column, shoulder2.row), (255, 0, 0), 2)
+
+    if(shoulder1.column < shoulder2.column and hand1.column < hand2.column) or (shoulder1.column > shoulder2.column
+                                                                                and hand1.column > hand2.column):
+        cv2.line(edge_array, (hand1.column, hand1.row), (shoulder1.column, shoulder1.row), (255, 0, 0), 2)
+        cv2.line(edge_array, (hand2.column, hand2.row), (shoulder2.column, shoulder2.row), (255, 0, 0), 2)
+
+    else:
+        cv2.line(edge_array, (hand1.column, hand1.row), (shoulder2.column, shoulder2.row), (255, 0, 0), 2)
+        cv2.line(edge_array, (hand2.column, hand2.row), (shoulder1.column, shoulder1.row), (255, 0, 0), 2)
+
+    cv2.circle(edge_array, (center_col, center_row), radius, (255, 0, 0), -1)
 
 
 def filter_ROI(img, contour, w, h, x, y):
@@ -410,14 +438,12 @@ def find_hands(ROI_mod, correct_hand_endpoints, intersects, centroid, head, leg1
             possible_hands.append(e)
 
     if len(possible_hands) >= 2:
-        print(">=2 hands")
         hand1 = classes.Coordinates(possible_hands[0].column, possible_hands[0].row)
         hand2 = classes.Coordinates(possible_hands[1].column, possible_hands[1].row)
     elif len(possible_hands) == 1:
-        print("1 hand")
         if stick is False:
             hand1 = classes.Coordinates(possible_hands[0].column, possible_hands[0].row)
-            if is_below_line(shoulders, centroid, possible_hands[0]) is True:
+            if is_below_line(shoulders, centroid, possible_hands[0]) == True:
                 hand2 = find_right_hand(ROI_mod, shoulders, centroid)
             else:
                 hand2 = find_left_hand(ROI_mod, shoulders, centroid)
@@ -425,15 +451,43 @@ def find_hands(ROI_mod, correct_hand_endpoints, intersects, centroid, head, leg1
             hand1 = find_right_hand(ROI_mod, shoulders, centroid)
             hand2 = find_left_hand(ROI_mod, shoulders, centroid)
     else:
-        print("0 hands")
         hand1 = find_right_hand(ROI_mod, shoulders, centroid)
         hand2 = find_left_hand(ROI_mod, shoulders, centroid)
 
     return hand1, hand2
 
 
-def draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, hand1, hand2, offset,
-                       center_col, center_row, radius):
+def find_hips(centroid, shoulders, hip_width):
+    m_hips, b_hips = perpendicular_parameters(centroid, shoulders)
+    x_offset, y_offset = calculate_perpendicular_offset(m_hips, int(hip_width/5))
+    hip1_column = centroid.column + x_offset
+    hip1_row = centroid.row + y_offset
+    hip2_column = centroid.column - x_offset
+    hip2_row = centroid.row - y_offset
+
+    hip1 = classes.Coordinates(hip1_column, hip1_row)
+    hip2 = classes.Coordinates(hip2_column, hip2_row)
+
+    return hip1, hip2
+
+
+def find_both_shoulders(centroid, shoulders, shoulder_width):
+    m_shoulders, b_shoulders = perpendicular_parameters(shoulders, centroid)
+    x_offset, y_offset = calculate_perpendicular_offset(m_shoulders, int(shoulder_width/5))
+
+    shoulder1_column = shoulders.column + x_offset
+    shoulder1_row = shoulders.row + y_offset
+    shoulder2_column = shoulders.column - x_offset
+    shoulder2_row = shoulders.row - y_offset
+
+    shoulder1 = classes.Coordinates(shoulder1_column, shoulder1_row)
+    shoulder2 = classes.Coordinates(shoulder2_column, shoulder2_row)
+
+    return shoulder1, shoulder2
+
+
+def draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, hand1, hand2, hip1, hip2, shoulder1,
+                       shoulder2, offset, center_col, center_row, radius):
     centroid_offset = offset_points(centroid, offset)
     head_offset = offset_points(head, offset)
     leg1_offset = offset_points(leg1, offset)
@@ -441,9 +495,14 @@ def draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, h
     shoulders_offset = offset_points(shoulders, offset)
     hand1_offset = offset_points(hand1, offset)
     hand2_offset = offset_points(hand2, offset)
+    hip1_offset = offset_points(hip1, offset)
+    hip2_offset = offset_points(hip2, offset)
+    shoulder1_offset = offset_points(shoulder1, offset)
+    shoulder2_offset = offset_points(shoulder2, offset)
 
     draw_skeleton(player_contours, leg1_offset, leg2_offset, head_offset, centroid_offset, shoulders_offset,
-                  hand1_offset, hand2_offset, center_col, center_row, radius)
+                  hand1_offset, hand2_offset, hip1_offset, hip2_offset, shoulder1_offset, shoulder2_offset,
+                  center_col, center_row, radius)
 
     return player_contours
 
@@ -480,7 +539,7 @@ def find_players(cntrs, player_contours, index, original_array):
         ROI = filter_ROI(ROI, c, w, h, x, y)
 
         head = find_head(ROI, h, w)
-        centroid = find_centroid(ROI, h, w)
+        centroid, hip_width = find_centroid(ROI, h, w)
         head_center_column, head_center_row = calculate_head_center(head, centroid)
 
         ROI_mod = ROI * np.uint8(255)
@@ -499,12 +558,15 @@ def find_players(cntrs, player_contours, index, original_array):
         hand1, hand2 = find_hands(ROI_mod, correct_hand_endpoints, intersects, centroid, head, leg1, leg2, h, w,
                                   shoulders)
 
+        hip1, hip2 = find_hips(centroid, shoulders, hip_width)
+        shoulder1, shoulder2 = find_both_shoulders(centroid, shoulders, hip_width)
+
         ROI_contours, ROI_hierarchy = cv2.findContours(ROI_mod, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
-        radius = int(distance(shoulders.column, shoulders.row, centroid.column, centroid.row)/5.5)
+        radius = int(distance(shoulders.column, shoulders.row, centroid.column, centroid.row) / 5.5)
 
         ROI_contour = copy.deepcopy(ROI_array)
-        draw_skeleton(ROI_array, leg1, leg2, head, centroid, shoulders, hand1, hand2,
+        draw_skeleton(ROI_array, leg1, leg2, head, centroid, shoulders, hand1, hand2, hip1, hip2, shoulder1, shoulder2,
                       head_center_column, head_center_row, radius)
         cv2.drawContours(ROI_contour, ROI_contours, -1, (0, 0, 255), 1)
 
@@ -519,25 +581,8 @@ def find_players(cntrs, player_contours, index, original_array):
         if 2 * h < w:
             collision = True
 
-        draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, hand1, hand2, offset,
-                           head_center_column, head_center_row, radius)
-
-        print(ROI_number)
-        print("head:")
-        coordinates_printer(head)
-        print("centroid:")
-        coordinates_printer(centroid)
-        print("shoulders:")
-        coordinates_printer(shoulders)
-        print("hand1:")
-        coordinates_printer(hand1)
-        print("hand2:")
-        coordinates_printer(hand2)
-        print("leg1:")
-        coordinates_printer(leg1)
-        print("leg2:")
-        coordinates_printer(leg2)
-        print("----------------")
+        draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, hand1, hand2, hip1, hip2, shoulder1,
+                           shoulder2, offset, head_center_column, head_center_row, radius)
 
         hands.append([hand1, hand2])
         shoulderss.append(shoulders)
