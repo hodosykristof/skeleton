@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from pathlib import Path
 from skimage import filters
 from skimage.morphology import skeletonize
@@ -12,219 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 
-
-@dataclass
-class Coordinates:
-    def __init__(self, column, row):
-        self._column = column
-        self._row = row
-
-    @property
-    def column(self) -> int:
-        return self._column
-
-    @property
-    def row(self) -> int:
-        return self._row
-
-    @column.setter
-    def column(self, i: int) -> None:
-        self._column = i
-
-    @row.setter
-    def row(self, i: int) -> None:
-        self._row = i
-
-
-@dataclass
-class Player:
-    def __init__(self, head, shoulders, centroid, hand1, hand2, elbow1, elbow2, leg1, leg2, knee1, knee2):
-        self._head = head
-        self._shoulders = shoulders
-        self._centroid = centroid
-        self._hand1 = hand1
-        self._hand2 = hand2
-        self._elbow1 = elbow1
-        self._elbow2 = elbow2
-        self._leg1 = leg1
-        self._leg2 = leg2
-        self._knee1 = knee1
-        self._knee2 = knee2
-
-    @property
-    def head(self) -> Coordinates:
-        return self._head
-
-    @property
-    def shoulders(self) -> Coordinates:
-        return self._shoulders
-
-    @property
-    def centroid(self) -> Coordinates:
-        return self._centroid
-
-    @property
-    def hand1(self) -> Coordinates:
-        return self._hand1
-
-    @property
-    def hand2(self) -> Coordinates:
-        return self._hand2
-
-    @property
-    def elbow1(self) -> Coordinates:
-        return self._elbow1
-
-    @property
-    def elbow2(self) -> Coordinates:
-        return self._elbow2
-
-    @property
-    def leg1(self) -> Coordinates:
-        return self._leg1
-
-    @property
-    def leg2(self) -> Coordinates:
-        return self._leg2
-
-    @property
-    def knee1(self) -> Coordinates:
-        return self._knee1
-
-    @property
-    def knee2(self) -> Coordinates:
-        return self._knee2
-
-    @head.setter
-    def head(self, h: Coordinates) -> None:
-        self._head = h
-
-    @shoulders.setter
-    def shoulders(self, s: Coordinates) -> None:
-        self._shoulders = s
-
-    @centroid.setter
-    def centroid(self, c: Coordinates) -> None:
-        self._centroid = c
-
-    @hand1.setter
-    def hand1(self, h: Coordinates) -> None:
-        self._hand1 = h
-
-    @hand2.setter
-    def hand2(self, h: Coordinates) -> None:
-        self._hand2 = h
-
-    @elbow1.setter
-    def elbow1(self, e: Coordinates) -> None:
-        self._elbow1 = e
-
-    @elbow2.setter
-    def elbow2(self, e: Coordinates) -> None:
-        self._elbow2 = e
-
-    @leg1.setter
-    def leg1(self, leg: Coordinates) -> None:
-        self._leg1 = leg
-
-    @leg2.setter
-    def leg2(self, leg: Coordinates) -> None:
-        self._leg2 = leg
-
-    @knee1.setter
-    def knee1(self, k: Coordinates) -> None:
-        self._knee1 = k
-
-    @knee2.setter
-    def knee2(self, k: Coordinates) -> None:
-        self._knee2 = k
-
-
-@dataclass
-class ROI:
-    def __init__(self, player, ROI_index, box_width, box_height, box_upper_left_x, box_upper_left_y, collision,
-                 possible_collision, possible_collision_participants):
-        self._player = player
-        self._ROI_index = ROI_index
-        self._box_width = box_width
-        self._box_height = box_height
-        self._box_upper_left_x = box_upper_left_x
-        self._box_upper_left_y = box_upper_left_y
-        self._collision = collision
-        self._possible_collision = possible_collision
-        self._possible_collision_participants = possible_collision_participants
-
-    @property
-    def player(self) -> Player:
-        return self._player
-
-    @property
-    def ROI_index(self) -> int:
-        return self._ROI_index
-
-    @property
-    def box_width(self) -> int:
-        return self._box_width
-
-    @property
-    def box_height(self) -> int:
-        return self._box_height
-
-    @property
-    def box_upper_left_x(self) -> int:
-        return self._box_upper_left_x
-
-    @property
-    def box_upper_left_y(self) -> int:
-        return self._box_upper_left_y
-
-    @property
-    def collision(self) -> bool:
-        return self._collision
-
-    @property
-    def possible_collision(self) -> bool:
-        return self._possible_collision
-
-    @property
-    def possible_collision_participants(self) -> list(int):
-        return self._possible_collision_participants
-
-    @player.setter
-    def player(self, p: Player) -> None:
-        self._player = p
-
-    @ROI_index.setter
-    def ROI_index(self, i: int) -> None:
-        self._ROI_index = i
-
-    @box_width.setter
-    def box_width(self, w: int) -> None:
-        self._box_width = w
-
-    @box_height.setter
-    def box_height(self, h: int) -> None:
-        self._box_height = h
-
-    @box_upper_left_x.setter
-    def box_upper_left_x(self, x: int) -> None:
-        self._box_upper_left_x = x
-
-    @box_upper_left_y.setter
-    def box_upper_left_y(self, y: int) -> None:
-        self._box_upper_left_y = y
-
-    @collision.setter
-    def collision(self, c: bool) -> None:
-        self._collision = c
-
-    @possible_collision.setter
-    def possible_collision(self, c: bool) -> None:
-        self._possible_collision = c
-
-    @possible_collision_participants.setter
-    def possible_collision_participants(self, p: []) -> None:
-        self._possible_collision_participants = p
+from classes import classes
 
 
 def img_read(path):
@@ -257,6 +44,16 @@ def distance(x1, y1, x2, y2):
     square_x = (x2 - x1) ** 2
     square_y = (y2 - y1) ** 2
     return math.sqrt(square_x + square_y)
+
+
+# def connecting_line_parameters(p1, p2):
+#     m = int((p2.row - p1.row) / (p2.column - p1.column))
+#     b = p1.row - m * p1.column
+#     return m, b
+#
+#
+# def is_above(p, m, b):
+#     return m * p.column + b - p.row < 0
 
 
 def contour_farther_from_centroid(contour_point, current_leg_point, centroid):
@@ -346,9 +143,9 @@ def find_skeleton_endpoints(img, w, h):
                     if img[i][j + 1]:
                         neighbours += 1
             if neighbours == 1:
-                endpoints.append(Coordinates(j, i))
+                endpoints.append(classes.Coordinates(j, i))
             if neighbours > 2:
-                intersections.append(Coordinates(j, i))
+                intersections.append(classes.Coordinates(j, i))
             # print(neighbours)
             neighbours = 0
 
@@ -380,7 +177,7 @@ def find_head(img, img_height, img_width):
     head_row = i
     head_column = int((max_start + max_end) / 2)
 
-    head_coordinates = Coordinates(head_column, head_row)
+    head_coordinates = classes.Coordinates(head_column, head_row)
 
     return head_coordinates
 
@@ -389,6 +186,7 @@ def find_centroid(img, img_height, img_width):
     max_start = 0
     max_end = 0
     current_start = 0
+    i = 1
     for i in range(1, img_width):
         if img[int(img_height / 2), i] == 1 and img[int(img_height / 2), i - 1] == 0:
             current_start = i
@@ -404,7 +202,7 @@ def find_centroid(img, img_height, img_width):
     centroid_row = int(img_height / 2)
     centroid_column = int((max_start + max_end) / 2)
 
-    centroid_coordinates = Coordinates(centroid_column, centroid_row)
+    centroid_coordinates = classes.Coordinates(centroid_column, centroid_row)
     return centroid_coordinates
 
 
@@ -416,7 +214,7 @@ def find_shoulders(head, centroid):
     shoulder_column = centroid.column + column_offset
     shoulder_row = centroid.row + row_offset
 
-    shoulder_coordinates = Coordinates(shoulder_column, shoulder_row)
+    shoulder_coordinates = classes.Coordinates(shoulder_column, shoulder_row)
     return shoulder_coordinates
 
 
@@ -438,13 +236,17 @@ def find_left_hand(edge, shoulders, centroid):
     shoulders_centroid_dist = distance(shoulders.column, shoulders.row, centroid.column, centroid.row)
     shoulders_hand_dist = int(shoulders_centroid_dist * 3.75 / 2.75)
     for i in range(0, contours[0].shape[0]):
-        if contours[0][i][0][0] < shoulders.column and abs(
-                distance(contours[0][i][0][0], contours[0][i][0][1], shoulders.column,
-                         shoulders.row) - shoulders_hand_dist) < abs(
-            distance(left_hand.column, left_hand.row, shoulders.column, shoulders.row) - shoulders_hand_dist):
-            left_hand.column = contours[0][i][0][0]
-            left_hand.row = contours[0][i][0][1]
+        point = classes.Coordinates(contours[0][i][0][0], contours[0][i][0][1])
+        current_dist = distance(point.column, point.row, shoulders.column, shoulders.row)
+        current_diff = int(abs(current_dist - shoulders_hand_dist))
+        previous_dist = distance(left_hand.column, left_hand.row, shoulders.column, shoulders.row)
+        previous_diff = int(abs(previous_dist - shoulders_hand_dist))
+        b = is_below_line(shoulders, centroid, point)
+        if (b is True) and (current_diff < previous_diff):
+            left_hand.column = point.column
+            left_hand.row = point.row
 
+    print("left")
     return left_hand
 
 
@@ -452,16 +254,20 @@ def find_right_hand(edge, shoulders, centroid):
     contours, hierarchy = cv2.findContours(edge, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
     right_hand = copy.deepcopy(shoulders)
-    shoulders_centroid_dist = distance(shoulders.column, shoulders.row, centroid.column, centroid.row)
+    shoulders_centroid_dist = int(distance(shoulders.column, shoulders.row, centroid.column, centroid.row))
     shoulders_hand_dist = int(shoulders_centroid_dist * 3.75 / 2.75)
     for i in range(0, contours[0].shape[0]):
-        if contours[0][i][0][0] > shoulders.column and abs(
-                distance(contours[0][i][0][0], contours[0][i][0][1], shoulders.column,
-                         shoulders.row) - shoulders_hand_dist) < abs(
-            distance(right_hand.column, right_hand.row, shoulders.column, shoulders.row) - shoulders_hand_dist):
-            right_hand.column = contours[0][i][0][0]
-            right_hand.row = contours[0][i][0][1]
+        point = classes.Coordinates(contours[0][i][0][0], contours[0][i][0][1])
+        current_dist = distance(point.column, point.row, shoulders.column, shoulders.row)
+        current_diff = int(abs(current_dist - shoulders_hand_dist))
+        previous_dist = distance(right_hand.column, right_hand.row, shoulders.column, shoulders.row)
+        previous_diff = int(abs(previous_dist - shoulders_hand_dist))
+        b = is_below_line(shoulders, centroid, point)
+        if (b is False) and (current_diff < previous_diff):
+            right_hand.column = point.column
+            right_hand.row = point.row
 
+    print("right")
     return right_hand
 
 
@@ -581,6 +387,51 @@ def find_legs2(good_ends, ROI_mod, centroid):
     return leg1, leg2
 
 
+def find_hands(ROI_mod, correct_hand_endpoints, intersects, centroid, head, leg1, leg2, h, w, shoulders):
+    stick = False
+    if len(correct_hand_endpoints) == 1:
+        stick = True
+
+    # print(ROI_number)
+    possible_hands = []
+    for e in correct_hand_endpoints:
+        small = False
+        for i in intersects:
+            if 0 < distance(e.column, e.row, i.column, i.row) < h * w / 800:
+                small = True
+                break
+        intersects = [i for i in intersects if not 0 < distance(e.column, e.row, i.column, i.row) < h * w / 800]
+        if small is False and not (e.row == leg1.row and e.column == leg1.column) \
+                and not (e.row == leg2.row and e.column == leg2.column) \
+                and distance(e.column, e.row, leg1.column, leg1.row) > h * w / 350 \
+                and distance(e.column, e.row, leg2.column, leg2.row) > h * w / 350 \
+                and distance(e.column, e.row, head.column, head.row) > h * w / 380 \
+                and e.row <= centroid.row:
+            possible_hands.append(e)
+
+    if len(possible_hands) >= 2:
+        print(">=2 hands")
+        hand1 = classes.Coordinates(possible_hands[0].column, possible_hands[0].row)
+        hand2 = classes.Coordinates(possible_hands[1].column, possible_hands[1].row)
+    elif len(possible_hands) == 1:
+        print("1 hand")
+        if stick is False:
+            hand1 = classes.Coordinates(possible_hands[0].column, possible_hands[0].row)
+            if is_below_line(shoulders, centroid, possible_hands[0]) is True:
+                hand2 = find_right_hand(ROI_mod, shoulders, centroid)
+            else:
+                hand2 = find_left_hand(ROI_mod, shoulders, centroid)
+        else:
+            hand1 = find_right_hand(ROI_mod, shoulders, centroid)
+            hand2 = find_left_hand(ROI_mod, shoulders, centroid)
+    else:
+        print("0 hands")
+        hand1 = find_right_hand(ROI_mod, shoulders, centroid)
+        hand2 = find_left_hand(ROI_mod, shoulders, centroid)
+
+    return hand1, hand2
+
+
 def draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, hand1, hand2, offset,
                        center_col, center_row, radius):
     centroid_offset = offset_points(centroid, offset)
@@ -595,6 +446,10 @@ def draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, h
                   hand1_offset, hand2_offset, center_col, center_row, radius)
 
     return player_contours
+
+
+def coordinates_printer(point):
+    print("(", point.column, ";", point.row, ")")
 
 
 def find_players(cntrs, player_contours, index, original_array):
@@ -616,7 +471,7 @@ def find_players(cntrs, player_contours, index, original_array):
         possible_next_collision = False
 
         x, y, w, h = cv2.boundingRect(c)
-        offset = Coordinates(x, y)
+        offset = classes.Coordinates(x, y)
 
         ROI = silhouette[y:y + h, x:x + w]
         # cv2.imwrite('ROI_prototype_{}.png'.format(ROI_number), ROI_array)
@@ -627,7 +482,6 @@ def find_players(cntrs, player_contours, index, original_array):
         head = find_head(ROI, h, w)
         centroid = find_centroid(ROI, h, w)
         head_center_column, head_center_row = calculate_head_center(head, centroid)
-        radius = int(w * h / 750)
 
         ROI_mod = ROI * np.uint8(255)
         ROI_array = ROI_to_array(ROI)
@@ -642,47 +496,12 @@ def find_players(cntrs, player_contours, index, original_array):
         shoulders = find_shoulders(head, centroid)
 
         correct_hand_endpoints = find_correct_endpoints(ends, intersects, w, h, centroid, "hands")
-        stick = False
-        if len(correct_hand_endpoints) == 1:
-            stick = True
-
-        # print(ROI_number)
-        possible_hands = []
-        for e in ends:
-            small = False
-            for i in intersects:
-                if 0 < distance(e.column, e.row, i.column, i.row) < h * w / 800:
-                    small = True
-                    break
-            intersects = [i for i in intersects if not 0 < distance(e.column, e.row, i.column, i.row) < h * w / 800]
-            if small is False and not (e.row == leg1.row and e.column == leg1.column) \
-                    and not (e.row == leg2.row and e.column == leg2.column) \
-                    and distance(e.column, e.row, leg1.column, leg1.row) > h * w / 350 \
-                    and distance(e.column, e.row, leg2.column, leg2.row) > h * w / 350 \
-                    and distance(e.column, e.row, head.column, head.row) > h * w / 380 \
-                    and e.row <= centroid.row:
-                possible_hands.append(e)
-                # print(e.column, ";", e.row)
-
-        if len(possible_hands) >= 2:
-            hand1 = Coordinates(possible_hands[0].column, possible_hands[0].row)
-            hand2 = Coordinates(possible_hands[1].column, possible_hands[1].row)
-        elif len(possible_hands) == 1:
-            if stick is False:
-                hand1 = Coordinates(possible_hands[0].column, possible_hands[0].row)
-                if possible_hands[0].column < shoulders.column:
-                    hand2 = find_right_hand(ROI_mod, shoulders, centroid)
-                else:
-                    hand2 = find_left_hand(ROI_mod, shoulders, centroid)
-            else:
-                hand1 = find_right_hand(ROI_mod, shoulders, centroid)
-                hand2 = find_left_hand(ROI_mod, shoulders, centroid)
-        else:
-            hand1 = find_right_hand(ROI_mod, shoulders, centroid)
-            hand2 = find_left_hand(ROI_mod, shoulders, centroid)
-        # print("-----------------------------------------------------------------")
+        hand1, hand2 = find_hands(ROI_mod, correct_hand_endpoints, intersects, centroid, head, leg1, leg2, h, w,
+                                  shoulders)
 
         ROI_contours, ROI_hierarchy = cv2.findContours(ROI_mod, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+        radius = int(distance(shoulders.column, shoulders.row, centroid.column, centroid.row)/5.5)
 
         ROI_contour = copy.deepcopy(ROI_array)
         draw_skeleton(ROI_array, leg1, leg2, head, centroid, shoulders, hand1, hand2,
@@ -692,10 +511,6 @@ def find_players(cntrs, player_contours, index, original_array):
         # Path("output/" + index + "/contours").mkdir(parents=True, exist_ok=True)
         # Path("output/" + index + "/skeletons").mkdir(parents=True, exist_ok=True)
         # Path("output/" + index + "/result").mkdir(parents=True, exist_ok=True)
-        #
-        # cv2.imwrite("output/" + index + "/contours/ROI_contour_{}.png".format(ROI_number), ROI_mod)
-        # cv2.imwrite("output/" + index + "/skeletons/ROI_skeleton_{}.png".format(ROI_number), ROI_skeleton)
-        # cv2.imwrite("output/" + index + "/result/ROI_new_{}.png".format(ROI_number), ROI_array)
 
         cv2.imwrite("output/" + index + "_{}_contour.png".format(ROI_number), ROI_contour)
         cv2.imwrite("output/" + index + "_{}_skeleton.png".format(ROI_number), ROI_skeleton)
@@ -706,6 +521,24 @@ def find_players(cntrs, player_contours, index, original_array):
 
         draw_all_skeletons(player_contours, centroid, head, leg1, leg2, shoulders, hand1, hand2, offset,
                            head_center_column, head_center_row, radius)
+
+        print(ROI_number)
+        print("head:")
+        coordinates_printer(head)
+        print("centroid:")
+        coordinates_printer(centroid)
+        print("shoulders:")
+        coordinates_printer(shoulders)
+        print("hand1:")
+        coordinates_printer(hand1)
+        print("hand2:")
+        coordinates_printer(hand2)
+        print("leg1:")
+        coordinates_printer(leg1)
+        print("leg2:")
+        coordinates_printer(leg2)
+        print("----------------")
+
         hands.append([hand1, hand2])
         shoulderss.append(shoulders)
         centroids.append(centroid)
@@ -783,7 +616,7 @@ previous_legs = []
 previous_collisions = []
 previous_possible_next_collisions = []
 
-for index in range(1970, 5060, 10):
+for index in range(2590, 2600, 10):
     input_num = str(index)
     filename = input_num + "_bw.png"
     source = "input/" + filename
@@ -800,8 +633,8 @@ for index in range(1970, 5060, 10):
 
     kernel = np.ones((3, 3), np.uint8)
     image = cv2.erode(original_image, kernel, 1)
-
     image = opening(image, 1)
+    image = cv2.dilate(image, kernel, 1)
     image = closing(image, 1)
     silhouette = binarize(image)
 
@@ -817,5 +650,5 @@ for index in range(1970, 5060, 10):
                                                                           original_array)
 
 # plotting
-# plot_figures(invert(original_image_binary), invert(image), all_contours.astype(np.uint8),
-#              player_contours.astype(np.uint8))
+plot_figures(invert(original_image_binary), invert(image), all_contours.astype(np.uint8),
+             player_contours.astype(np.uint8))
