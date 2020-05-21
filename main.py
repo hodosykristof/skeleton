@@ -220,9 +220,7 @@ def calculate_head_center(head, centroid):
     return head_column, head_row
 
 
-def find_left_hand(edge, shoulders, centroid):
-    contours, hierarchy = cv2.findContours(edge, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-
+def find_left_hand(contours, shoulders, centroid):
     left_hand = copy.deepcopy(shoulders)
     shoulders_centroid_dist = distance(shoulders.column, shoulders.row, centroid.column, centroid.row)
     shoulders_hand_dist = int(shoulders_centroid_dist * 3.75 / 2.75)
@@ -239,9 +237,7 @@ def find_left_hand(edge, shoulders, centroid):
     return left_hand
 
 
-def find_right_hand(edge, shoulders, centroid):
-    contours, hierarchy = cv2.findContours(edge, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-
+def find_right_hand(contours, shoulders, centroid):
     right_hand = copy.deepcopy(shoulders)
     shoulders_centroid_dist = int(distance(shoulders.column, shoulders.row, centroid.column, centroid.row))
     shoulders_hand_dist = int(shoulders_centroid_dist * 3.75 / 2.75)
@@ -258,9 +254,7 @@ def find_right_hand(edge, shoulders, centroid):
     return right_hand
 
 
-def find_legs(edge, centroid):
-    contours, hierarchy = cv2.findContours(edge, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-
+def find_legs(contours, centroid):
     left_leg = copy.deepcopy(centroid)
     right_leg = copy.deepcopy(centroid)
     for i in range(0, contours[0].shape[0]):
@@ -277,6 +271,173 @@ def find_legs(edge, centroid):
                     right_leg.row = contours[0][i][0][1]
 
     return left_leg, right_leg
+
+
+def exchange_two_points(p1, p2):
+    temp = copy.deepcopy(p1)
+    p1 = copy.deepcopy(p2)
+    p2 = copy.deepcopy(temp)
+    return p1, p2
+
+
+def find_knees_and_elbows(ROI_mod, contours, centroid, hip1, hip2, leg1, leg2, shoulder1, shoulder2, hand1, hand2, w, h):
+    if not hip1.column < hip2.column:
+        hip1, hip2 = exchange_two_points(hip1, hip2)
+
+    if not leg1.column < leg2.column:
+        leg1, leg2 = exchange_two_points(leg1, leg2)
+
+    if not shoulder1.column < shoulder2.column:
+        shoulder1, shoulder2 = exchange_two_points(shoulder1, shoulder2)
+
+    if not hand1.column < hand2.column:
+        hand1, hand2 = exchange_two_points(hand1, hand2)
+
+    previous_below_left_hand = False
+    previous_below_right_hand = False
+    previous_below_left_leg = False
+    previous_below_right_leg = False
+
+    left_hand_transitions = []
+    right_hand_transitions = []
+    left_leg_transitions = []
+    right_leg_transitions = []
+
+    left_elbow = classes.Coordinates(0, 0)
+    right_elbow = classes.Coordinates(0, 0)
+    left_knee = classes.Coordinates(0, 0)
+    right_knee = classes.Coordinates(0, 0)
+
+    for i in range(0, contours[0].shape[0]):
+        # left hand:
+        if contours[0][i][0][0] < centroid.column and contours[0][i][0][1] < centroid.row:
+            below_left_hand = is_below_line(hand1, shoulder1, classes.Coordinates(contours[0][i][0][0], contours[0][i][0][1]))
+            if i != 0 and ((below_left_hand and not previous_below_left_hand) or
+                           (not below_left_hand and previous_below_left_hand)):
+                left_hand_transitions.append(classes.Coordinates(contours[0][i][0][0], contours[0][i][0][1]))
+            previous_below_left_hand = below_left_hand
+        # right hand:
+        elif contours[0][i][0][0] > centroid.column and contours[0][i][0][1] < centroid.row:
+            below_right_hand = is_below_line(hand2, shoulder2, classes.Coordinates(contours[0][i][0][0], contours[0][i][0][1]))
+            if i != 0 and ((below_right_hand and not previous_below_right_hand) or
+                           (not below_right_hand and previous_below_right_hand)):
+                right_hand_transitions.append(classes.Coordinates(contours[0][i][0][0], contours[0][i][0][1]))
+            previous_below_right_hand = below_right_hand
+        # right leg:
+        elif contours[0][i][0][0] > centroid.column and contours[0][i][0][1] > centroid.row:
+            below_right_leg = is_below_line(hip2, leg2, classes.Coordinates(contours[0][i][0][0], contours[0][i][0][1]))
+            if i != 0 and ((below_right_leg and not previous_below_right_leg) or
+                           (not below_right_leg and previous_below_right_leg)):
+                right_leg_transitions.append(classes.Coordinates(contours[0][i][0][0], contours[0][i][0][1]))
+            previous_below_right_leg = below_right_leg
+        # left leg:
+        elif contours[0][i][0][0] < centroid.column and contours[0][i][0][1] > centroid.row:
+            below_left_leg = is_below_line(hip1, leg1, classes.Coordinates(contours[0][i][0][0], contours[0][i][0][1]))
+            if i != 0 and ((below_left_leg and not previous_below_left_leg) or
+                           (not below_left_leg and previous_below_left_leg)):
+                left_leg_transitions.append(classes.Coordinates(contours[0][i][0][0], contours[0][i][0][1]))
+            previous_below_left_leg = below_left_leg
+
+    if len(left_hand_transitions) >= 2:
+        d = int(distance(left_hand_transitions[0].column, left_hand_transitions[0].row,
+                         left_hand_transitions[1].column, left_hand_transitions[1].row))
+        m_x = (left_hand_transitions[0].column + left_hand_transitions[1].column) / 2
+        m_y = (left_hand_transitions[0].row + left_hand_transitions[1].row) / 2
+        m, b = perpendicular_parameters(left_hand_transitions[0], left_hand_transitions[1])
+        for j in range(0, int(1.5 * d)):
+            x_offset, y_offset = calculate_perpendicular_offset(m, j)
+            x = int(m_x + x_offset)
+            y = int(m_y + y_offset)
+            if w > x >= 0 and h > y >= 0:
+                if ROI_mod[x][y] == 255:
+                    left_elbow.column = x
+                    left_elbow.row = y
+                    break
+
+            x = int(m_x - x_offset)
+            y = int(m_y - y_offset)
+            if w > x >= 0 and h > y >= 0:
+                if ROI_mod[x][y] == 255:
+                    left_elbow.column = x
+                    left_elbow.row = y
+                    break
+
+
+    if len(right_hand_transitions) >= 2:
+        d = int(distance(right_hand_transitions[0].column, right_hand_transitions[0].row,
+                         right_hand_transitions[1].column, right_hand_transitions[1].row))
+        m_x = (right_hand_transitions[0].column + right_hand_transitions[1].column) / 2
+        m_y = (right_hand_transitions[0].row + right_hand_transitions[1].row) / 2
+        m, b = perpendicular_parameters(right_hand_transitions[0], right_hand_transitions[1])
+        for j in range(0, int(1.5 * d)):
+            x_offset, y_offset = calculate_perpendicular_offset(m, j)
+            x = int(m_x + x_offset)
+            y = int(m_y + y_offset)
+            if w > x >= 0 and h > y >= 0:
+                if ROI_mod[x][y] == 255:
+                    right_elbow.column = x
+                    right_elbow.row = y
+                    break
+
+
+            x = int(m_x - x_offset)
+            y = int(m_y - y_offset)
+            if w > x >= 0 and h > y >= 0:
+                if ROI_mod[x][y] == 255:
+                    right_elbow.column = x
+                    right_elbow.row = y
+                    break
+
+    if len(left_leg_transitions) >= 2:
+        d = int(distance(left_leg_transitions[0].column, left_leg_transitions[0].row,
+                         left_leg_transitions[1].column, left_leg_transitions[1].row))
+        m_x = (left_leg_transitions[0].column + left_leg_transitions[1].column) / 2
+        m_y = (left_leg_transitions[0].row + left_leg_transitions[1].row) / 2
+        m, b = perpendicular_parameters(left_leg_transitions[0], left_leg_transitions[1])
+        for j in range(0, int(1.5 * d)):
+            x_offset, y_offset = calculate_perpendicular_offset(m, j)
+            x = int(m_x + x_offset)
+            y = int(m_y + y_offset)
+            if w > x >= 0 and h > y >= 0:
+                if ROI_mod[x][y] == 255:
+                    left_knee.column = x
+                    left_knee.row = y
+                    break
+
+            x = int(m_x - x_offset)
+            y = int(m_y - y_offset)
+            if w > x >= 0 and h > y >= 0:
+                if ROI_mod[x][y] == 255:
+                    left_knee.column = x
+                    left_knee.row = y
+                    break
+
+    if len(right_leg_transitions) >= 2:
+        d = int(distance(right_leg_transitions[0].column, right_leg_transitions[0].row,
+                         right_leg_transitions[1].column, right_leg_transitions[1].row))
+        m_x = (right_leg_transitions[0].column + right_leg_transitions[1].column) / 2
+        m_y = (right_leg_transitions[0].row + right_leg_transitions[1].row) / 2
+        m, b = perpendicular_parameters(right_leg_transitions[0], right_leg_transitions[1])
+        for j in range(0, int(1.5 * d)):
+            x_offset, y_offset = calculate_perpendicular_offset(m, j)
+            x = int(m_x + x_offset)
+            y = int(m_y + y_offset)
+            if w > x >= 0 and h > y >= 0:
+                if ROI_mod[x][y] == 255:
+                    right_knee.column = x
+                    right_knee.row = y
+                    break
+
+
+            x = int(m_x - x_offset)
+            y = int(m_y - y_offset)
+            if w > x >= 0 and h > y >= 0:
+                if ROI_mod[x][y] == 255:
+                    right_knee.column = x
+                    right_knee.row = y
+                    break
+
+    return left_elbow, right_elbow, left_knee, right_knee
 
 
 def export_legs(legs):
@@ -392,12 +553,12 @@ def find_correct_endpoints(ends, intersects, w, h, centroid, mode):
     return good_ends
 
 
-def find_legs2(good_ends, ROI_mod, centroid):
+def find_legs2(good_ends, contours, centroid):
     leg1 = copy.deepcopy(centroid)
     leg2 = copy.deepcopy(centroid)
     for e in good_ends:
         if len(good_ends) < 2:
-            leg1, leg2 = find_legs(ROI_mod, copy.deepcopy(centroid))
+            leg1, leg2 = find_legs(contours, copy.deepcopy(centroid))
         else:
             if distance(e.column, e.row, centroid.column, centroid.row) > distance(leg2.column, leg2.row,
                                                                                    centroid.column, centroid.row):
@@ -415,7 +576,7 @@ def find_legs2(good_ends, ROI_mod, centroid):
     return leg1, leg2
 
 
-def find_hands(ROI_mod, correct_hand_endpoints, intersects, centroid, head, leg1, leg2, h, w, shoulders):
+def find_hands(contours, correct_hand_endpoints, intersects, centroid, head, leg1, leg2, h, w, shoulders):
     stick = False
     if len(correct_hand_endpoints) == 1:
         stick = True
@@ -444,15 +605,15 @@ def find_hands(ROI_mod, correct_hand_endpoints, intersects, centroid, head, leg1
         if stick is False:
             hand1 = classes.Coordinates(possible_hands[0].column, possible_hands[0].row)
             if is_below_line(shoulders, centroid, possible_hands[0]) == True:
-                hand2 = find_right_hand(ROI_mod, shoulders, centroid)
+                hand2 = find_right_hand(contours, shoulders, centroid)
             else:
-                hand2 = find_left_hand(ROI_mod, shoulders, centroid)
+                hand2 = find_left_hand(contours, shoulders, centroid)
         else:
-            hand1 = find_right_hand(ROI_mod, shoulders, centroid)
-            hand2 = find_left_hand(ROI_mod, shoulders, centroid)
+            hand1 = find_right_hand(contours, shoulders, centroid)
+            hand2 = find_left_hand(contours, shoulders, centroid)
     else:
-        hand1 = find_right_hand(ROI_mod, shoulders, centroid)
-        hand2 = find_left_hand(ROI_mod, shoulders, centroid)
+        hand1 = find_right_hand(contours, shoulders, centroid)
+        hand2 = find_left_hand(contours, shoulders, centroid)
 
     return hand1, hand2
 
@@ -547,23 +708,29 @@ def find_players(cntrs, player_contours, index, original_array):
         ROI_skeleton = skeletonize(ROI_array)
         ROI_skeleton_bin = cv2.cvtColor(ROI_skeleton, cv2.COLOR_BGR2GRAY)
         ROI_skeleton_bin = binarize(ROI_skeleton_bin)
+        ROI_contours, ROI_hierarchy = cv2.findContours(ROI_mod, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         ends, intersects = find_skeleton_endpoints(ROI_skeleton_bin, w, h)
 
         correct_leg_endpoints = find_correct_endpoints(ends, intersects, w, h, centroid, "legs")
-        leg1, leg2 = find_legs2(correct_leg_endpoints, ROI_mod, centroid)
+        leg1, leg2 = find_legs2(correct_leg_endpoints, ROI_contours, centroid)
 
         shoulders = find_shoulders(head, centroid)
 
         correct_hand_endpoints = find_correct_endpoints(ends, intersects, w, h, centroid, "hands")
-        hand1, hand2 = find_hands(ROI_mod, correct_hand_endpoints, intersects, centroid, head, leg1, leg2, h, w,
+        hand1, hand2 = find_hands(ROI_contours, correct_hand_endpoints, intersects, centroid, head, leg1, leg2, h, w,
                                   shoulders)
 
         hip1, hip2 = find_hips(centroid, shoulders, hip_width)
         shoulder1, shoulder2 = find_both_shoulders(centroid, shoulders, hip_width)
-
-        ROI_contours, ROI_hierarchy = cv2.findContours(ROI_mod, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        elbow1, elbow2, knee1, knee2 = find_knees_and_elbows(ROI_mod, ROI_contours, centroid, hip1, hip2, leg1, leg2,
+                                                             shoulder1, shoulder2, hand1, hand2, w, h)
 
         radius = int(distance(shoulders.column, shoulders.row, centroid.column, centroid.row) / 5.5)
+
+        coordinates_printer(elbow1)
+        coordinates_printer(elbow2)
+        coordinates_printer(knee1)
+        coordinates_printer(knee2)
 
         ROI_contour = copy.deepcopy(ROI_array)
         draw_skeleton(ROI_array, leg1, leg2, head, centroid, shoulders, hand1, hand2, hip1, hip2, shoulder1, shoulder2,
